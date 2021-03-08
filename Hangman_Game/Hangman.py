@@ -86,6 +86,7 @@ def begin():
             word = choice(word)
         for i in range(len(word)):
             spaces += ['_']
+            
     else:
         letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         word = ''
@@ -120,16 +121,13 @@ def display(word):
         
         print('\n********************* ROUND {} *********************\n'.format(r))
         pick = input('\nPick a letter: ')
-        
+        guesses += pick
         
         if pick in word:
-            while word.count(pick) != 0:
+            while word.count(pick) >= 1:
                 pos = word.index(pick)
                 spaces[pos] = pick
                 word = word.replace(pick, ' ', 1)
-                if word.count(pick) == 1:
-                    pos = word.index(pick)
-                    spaces[pos] = pick
             hangman(stage)
             if word.count(' ') == len(word):
                 print('\nWord: {}\nGuess: {}\nMisses: {}'.format(spaces, guesses, misses))
@@ -141,7 +139,6 @@ def display(word):
             stage += 1
             hangman(stage)
             misses += pick
-        guesses += pick
         r += 1
         print('\nWord: {}\nGuess: {}\nMisses: {}'.format(spaces, guesses, misses))
         if stage == 7:
